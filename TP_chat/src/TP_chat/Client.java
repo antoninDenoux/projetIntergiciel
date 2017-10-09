@@ -12,13 +12,13 @@ public class Client {
 		Dialogue myComponent;
 		try {
 			myComponent = (Dialogue) Naming.lookup("Dialogue");
-			//myComponent.connect("Bob");
-			for (int i=0;i<myComponent.getClients().length;i++) {
-				System.out.println(i);
-				System.out.println(myComponent.getClients()[i]);
-			}
-			//myComponent.sendMessage("Bob", "Toto", "Premier message");
-			//System.out.println(myComponent.getMessages("Bob"));
+			System.out.println(myComponent.connect("Bob"));
+			System.out.println(myComponent.connect("JJG"));
+			System.out.println(myComponent.connect("Bob"));
+			System.out.println(myComponent.sendMessage("Toto", "Bob", "Premier message"));
+			System.out.println(myComponent.sendMessage("Toto", "Bob", "Second message"));
+			System.out.println(myComponent.getMessages("Bob"));
+			System.out.println(myComponent.getClients());
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
