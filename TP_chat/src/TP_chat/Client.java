@@ -33,6 +33,9 @@ public class Client {
 				case ("getMessages"):
 					System.out.println(myComponent.getMessages(req[1]));
 					break;
+				case ("getClients"):
+					System.out.println(myComponent.getClients());
+					break;
 				case ("end"):
 					boucle = false;
 					System.out.println("Fin du tchat");
