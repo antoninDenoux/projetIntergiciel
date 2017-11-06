@@ -9,9 +9,9 @@ public class Server {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		try {
-			Dialogue myComponent = new DialogueImpl();
+			Connection connection = new ConnectionImpl();
 
-			Naming.rebind("Dialogue", myComponent);
+			Naming.rebind("Connection", connection);
 
 			System.out.println("Server online");
 

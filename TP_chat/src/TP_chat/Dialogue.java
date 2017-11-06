@@ -6,9 +6,11 @@ import java.util.ArrayList;
 
 public interface Dialogue extends Remote {
 	
-	String connect(String pseudo) throws RemoteException;
+	void setListClients(ArrayList<String> listClients) throws RemoteException;
 	void disconnect(String pseudo) throws RemoteException;
 	String getClients() throws RemoteException;
-	String sendMessage(String from, String to, String message) throws RemoteException;
-	String getMessages(String pseudo) throws RemoteException;
+	ArrayList<String[]> getListMsg() throws RemoteException;
+	String sendMessage(String to, String message) throws RemoteException;
+	String getMessages() throws RemoteException;
+	String getPseudo() throws RemoteException;
 }

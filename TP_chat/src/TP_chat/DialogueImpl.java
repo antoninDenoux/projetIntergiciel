@@ -1,37 +1,36 @@
 package TP_chat;
 
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 public class DialogueImpl extends UnicastRemoteObject implements Dialogue {
 
+	Connection myConnection;
 	public ArrayList<String> listClients;
 	public ArrayList<String[]> listMsg;
+	public String pseudo;
 
-	protected DialogueImpl() throws RemoteException {
+	protected DialogueImpl(String pseudo) throws RemoteException {
 		super();
 		listClients = new ArrayList<String>();
-		listClients.add("Toto");
-		listClients.add("Pierre");
 		listMsg = new ArrayList<String[]>();
+		this.pseudo = pseudo;
 	}
 
-	@Override
-	public String connect(String pseudo) {
-		boolean already = false;
-		String answer = "Liste des utilisateurs: ";
-		for (String nom : listClients) {
-			answer += nom + " ";
-			if (nom.equals(pseudo)) {
-				already = true;
-			}
-		}
-		if (!already) {
-			listClients.add(pseudo);
-			answer += pseudo;
-		}
-		return answer;
+	public String getPseudo() {
+		return pseudo;
+	}
+	
+	public ArrayList<String[]> getListMsg() {
+		return listMsg;
+	}
+	
+	public void setListClients(ArrayList<String> listClients) {
+		this.listClients = listClients;
 	}
 
 	@Override
@@ -53,10 +52,10 @@ public class DialogueImpl extends UnicastRemoteObject implements Dialogue {
 	}
 
 	@Override
-	public String sendMessage(String from, String to, String message) throws RemoteException {
+	public String sendMessage(String to, String message) throws RemoteException {
 		for (String nom : listClients) {
 			if (nom.equals(to)) {
-				String[] msg = { from, to, message };
+				String[] msg = {to, message };
 				listMsg.add(msg);
 				return "Message envoyé !";
 			}
@@ -65,20 +64,17 @@ public class DialogueImpl extends UnicastRemoteObject implements Dialogue {
 	}
 
 	@Override
-	public String getMessages(String pseudo) throws RemoteException {
-		boolean isMsg = false;
-		String answer = "";
-		for (String[] msg : listMsg) {
-			if (msg[1].equals(pseudo)) {
-				answer += "-- Message de " + msg[0] + " --\n" + msg[2] + "\n-- Fin du message --\n";
-				isMsg = true;
-			}
+	public String getMessages() throws RemoteException {
+		try {
+			myConnection = (Connection) Naming.lookup("Connection");
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		if (isMsg) {
-			return answer+" ------Fin des messages------";
-		} else {
-			return "Vous n'avez pas de message ! :(";
-		}
+		return myConnection.getMessages(pseudo);
 	}
 
 }

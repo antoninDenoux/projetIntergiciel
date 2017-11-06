@@ -11,27 +11,37 @@ import java.rmi.RemoteException;
 public class Client {
 
 	public static void main(String[] args) {
-		Dialogue myComponent;
+		Connection myConnection;
+		Dialogue myComponent = null;
+		
 		try {
-			boolean boucle = true;
-			myComponent = (Dialogue) Naming.lookup("Dialogue");
+			boolean boucle = false;
+			myConnection = (Connection) Naming.lookup("Connection");
+			System.out.println("Bienvenue sur le tchat");
 			BufferedReader userIn = new BufferedReader(new InputStreamReader(System.in));
-			System.out.println("Bienvenue sur le tchat, taper help pour l'aide");
+			while(!boucle) {
+				System.out.println("Veuillez indiquer votre pseudo");
+				String pseudoLine = userIn.readLine();
+				myComponent = myConnection.connect(pseudoLine.split(" ")[0]);
+				if (myComponent == null) {
+					System.out.println("Pseudo déjà pris");
+				} else {
+					boucle = true;
+					System.out.println(pseudoLine.split(" ")[0]+"--Début du tchat, taper help pour l'aide");
+				}
+			}			
 			while (boucle) {
 				String theLine = userIn.readLine();
 				String[] req = theLine.split(" ");
 				switch (req[0]) {
 				case ("help"):
-					System.out.println("Commandes disponibles: connect pseudo ; end ; sendMessage");
-					break;
-				case ("connect"):
-					System.out.println(myComponent.connect(req[1]));
+					System.out.println("Commandes disponibles: getClients ; getMessages ; end ; sendMessage");
 					break;
 				case ("sendMessage"):
-					System.out.println(myComponent.sendMessage(req[1], req[2], req[3]));
+					System.out.println(myComponent.sendMessage(req[1], req[2]));
 					break;
 				case ("getMessages"):
-					System.out.println(myComponent.getMessages(req[1]));
+					System.out.println(myComponent.getMessages());
 					break;
 				case ("getClients"):
 					System.out.println(myComponent.getClients());
