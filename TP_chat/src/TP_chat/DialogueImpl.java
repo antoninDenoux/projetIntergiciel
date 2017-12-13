@@ -14,7 +14,7 @@ public class DialogueImpl extends UnicastRemoteObject implements Dialogue {
 	public ArrayList<String[]> listMsg;
 	public String pseudo;
 
-	protected DialogueImpl(String pseudo) throws RemoteException {
+	public DialogueImpl(String pseudo) throws RemoteException {
 		super();
 		listClients = new ArrayList<String>();
 		listMsg = new ArrayList<String[]>();

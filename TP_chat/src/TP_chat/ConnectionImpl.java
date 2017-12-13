@@ -11,7 +11,7 @@ public class ConnectionImpl extends UnicastRemoteObject implements Connection {
 	public ArrayList<Dialogue> dialogueList;
 	public ArrayList<String> listClients;
 
-	protected ConnectionImpl() throws RemoteException {
+	public ConnectionImpl() throws RemoteException {
 		super();
 		dialogueList = new ArrayList<Dialogue>();
 		listClients = new ArrayList<String>();
