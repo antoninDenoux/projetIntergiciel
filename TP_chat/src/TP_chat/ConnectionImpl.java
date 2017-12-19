@@ -21,6 +21,10 @@ public class ConnectionImpl extends UnicastRemoteObject implements Connection {
 		return dialogueList;
 	}
 
+	public ArrayList<String> getListClients() {
+		return listClients;
+	}
+
 	@Override
 	public Dialogue connect(String pseudo) {
 		try {

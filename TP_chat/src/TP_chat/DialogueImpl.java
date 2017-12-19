@@ -71,8 +71,8 @@ public class DialogueImpl extends UnicastRemoteObject implements Dialogue {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NotBoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return "Probleme de connection";
 		}
 		return myConnection.getMessages(pseudo);
 	}

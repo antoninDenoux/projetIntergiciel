@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
+import TP_chat.ConnectionImpl;
 import TP_chat.Dialogue;
 import TP_chat.DialogueImpl;
 
@@ -134,7 +135,16 @@ class testDialogue {
 
 	@Test
 	void testGetMessages() {
-		//fail("Not yet implemented");
+		
+		ConnectionImpl conn;
+		try {
+			Dialogue dial1= new DialogueImpl("Bob");
+			assertEquals("Probleme de connection", dial1.getMessages());
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 }
